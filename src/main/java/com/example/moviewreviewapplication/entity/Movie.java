@@ -21,7 +21,14 @@ public class Movie {
     private String genre;
     private Integer releaseYear;
     private Double imdbRating;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
     private List<Review> reviews;
+    @ManyToMany
+    @JoinTable(
+            name = "movie_categories",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private List<Category> categories;
 
 }
