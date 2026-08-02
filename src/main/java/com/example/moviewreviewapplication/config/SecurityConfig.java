@@ -5,6 +5,7 @@ import com.example.moviewreviewapplication.security.JwtAuthenticationEntryPoint;
 import com.example.moviewreviewapplication.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,11 +65,21 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/swagger-ui.html"
                         ).permitAll()
+                        //Admin endpoints
                         .requestMatchers("/admin/**")
                         .hasAuthority("ADMIN")
-                        .requestMatchers("/user/**")
+                        //user endpoints
+                        .requestMatchers("/users/**")
                         .hasAnyAuthority("USER", "ADMIN")
-
+                        //category
+                        .requestMatchers(HttpMethod.GET, "/categories/**")
+                        .hasAnyAuthority("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/categories/**")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/categories/**")
+                        .hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/categories/**")
+                        .hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
 
