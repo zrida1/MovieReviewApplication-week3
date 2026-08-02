@@ -1,4 +1,5 @@
 package com.example.moviewreviewapplication.dto;
+import com.example.moviewreviewapplication.entity.Category;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
