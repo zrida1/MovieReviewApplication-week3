@@ -1,0 +1,60 @@
+package com.example.moviewreviewapplication.service.impl;
+
+import com.example.moviewreviewapplication.dto.LoginRequest;
+import com.example.moviewreviewapplication.dto.LoginResponse;
+import com.example.moviewreviewapplication.dto.UserRequestDTO;
+import com.example.moviewreviewapplication.dto.UserResponseDTO;
+import com.example.moviewreviewapplication.entity.Role;
+import com.example.moviewreviewapplication.entity.User;
+import com.example.moviewreviewapplication.mapper.UserMapper;
+import com.example.moviewreviewapplication.repository.UserRepository;
+import com.example.moviewreviewapplication.service.AuthService;
+import com.example.moviewreviewapplication.service.JwtService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+@Service
+public class AuthServiceImpl implements AuthService {
+
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+    private final JwtService jwtService;
+
+    private final PasswordEncoder encoder;
+
+    public AuthServiceImpl(UserRepository userRepository,
+                           UserMapper userMapper,
+                           JwtService jwtService,
+                           PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+        this.jwtService = jwtService;
+        this.encoder = encoder;
+    }
+
+    @Override
+    public UserResponseDTO register(UserRequestDTO dto) {
+
+        dto.setPassword(encoder.encode(dto.getPassword()));
+
+        User user = userMapper.toEntity(dto);
+        user.setRole(Role.USER);
+
+        return userMapper.toResponseDTO(userRepository.save(user));
+    }
+
+    @Override
+    public LoginResponse login(LoginRequest dto) {
+
+        User user = userRepository.findByEmail(dto.getEmail())
+                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+
+        if (!encoder.matches(dto.getPassword(), user.getPassword())) {
+            throw new RuntimeException("Invalid email or password");
+        }
+
+        String token = jwtService.generateToken(user.getEmail());
+
+        return new LoginResponse(token);
+    }
+}
