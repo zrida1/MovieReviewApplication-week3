@@ -1,9 +1,8 @@
 package com.example.moviewreviewapplication.dto;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class MovieRequestDTO {
@@ -20,4 +19,6 @@ public class MovieRequestDTO {
     @Min(value = 0, message = "IMDB rating cannot be less than 0")
     @Max(value = 10, message = "IMDB rating cannot be greater than 10")
     private Double imdbRating;
+    @NotEmpty(message = "At least one category must be selected")
+    private List<Long> categoryIds;
 }

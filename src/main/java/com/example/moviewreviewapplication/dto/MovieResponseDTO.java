@@ -2,6 +2,8 @@ package com.example.moviewreviewapplication.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @JsonPropertyOrder({
         "id",
@@ -9,6 +11,7 @@ import lombok.Data;
         "genre",
         "releaseYear",
         "imdbRating",
+        "categories",
         "description"
 })
 public class MovieResponseDTO {
@@ -18,5 +21,6 @@ public class MovieResponseDTO {
     private String genre;
     private Integer releaseYear;
     private Double imdbRating;
+    private List<String> categories;
 
 }
