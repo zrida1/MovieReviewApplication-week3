@@ -68,4 +68,11 @@ public class MovieServiceImpl implements MovieService {
         return movieMapper.toResponseDTO(movieRepository.save(movie));
 
     }
+    @Override
+    public List<MovieResponseDTO> getMoviesByGenre(String genre){
+        return movieRepository.findByGenre(genre)
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
 }
