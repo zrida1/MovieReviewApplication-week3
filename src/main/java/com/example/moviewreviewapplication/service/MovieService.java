@@ -18,5 +18,6 @@ public interface MovieService {
     void deleteMovie(Long id);
     MovieResponseDTO createMovie(MovieRequestDTO dto);
     List<MovieResponseDTO> getMoviesByGenre(String genre);
+    List<MovieResponseDTO> getMoviesByRating(Double rating);
 
 }

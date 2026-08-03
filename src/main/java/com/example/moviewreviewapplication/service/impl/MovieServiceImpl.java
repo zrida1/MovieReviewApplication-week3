@@ -75,4 +75,12 @@ public class MovieServiceImpl implements MovieService {
                 .map(movieMapper::toResponseDTO)
                 .toList();
     }
+    @Override
+    public List<MovieResponseDTO> getMoviesByRating(Double rating){
+        return movieRepository.findByImdbRatingGreaterThanEqual(rating)
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
+
 }
