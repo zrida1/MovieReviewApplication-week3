@@ -30,4 +30,11 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     """)
     List<Movie> findMoviesByCategory(@Param("categoryName") String categoryName);
 
+    @Query(value="""
+        SELECT *
+        FROM movies
+        WHERE imdb_rating>8
+    """,nativeQuery = true)
+    List<Movie>findBestMovies();
+
 }
