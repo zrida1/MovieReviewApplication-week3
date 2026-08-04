@@ -97,5 +97,12 @@ public class MovieServiceImpl implements MovieService {
                 .toList();
     }
 
+    @Override
+    public List<MovieResponseDTO> getMoviesByCategory(String category){
+        return movieRepository.findMoviesByCategory(category)
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
 
 }

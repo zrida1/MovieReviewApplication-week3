@@ -21,6 +21,7 @@ public interface MovieService {
     List<MovieResponseDTO> getMoviesByRating(Double rating);
     List<MovieResponseDTO> searchByTitle(String title);
     List<MovieResponseDTO> getTopMovies(Double rating,Integer year);
+    List<MovieResponseDTO> getMoviesByCategory(String category);
 
 
 
