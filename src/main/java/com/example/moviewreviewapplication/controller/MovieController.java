@@ -87,4 +87,11 @@ public class MovieController {
     public List<MovieResponseDTO> byCategory(@PathVariable String category) {
         return movieService.getMoviesByCategory(category);
     }
+
+    @Operation(summary = "Get movies that have IMBD greater than 8")
+    @GetMapping("/best")
+    public List<MovieResponseDTO> bestMovies() {
+
+        return movieService.getBestMovies();
+    }
 }

@@ -23,6 +23,7 @@ public interface MovieService {
     List<MovieResponseDTO> getTopMovies(Double rating,Integer year);
     List<MovieResponseDTO> getMoviesByCategory(String category);
 
+    List<MovieResponseDTO> getBestMovies();
 
 
 }

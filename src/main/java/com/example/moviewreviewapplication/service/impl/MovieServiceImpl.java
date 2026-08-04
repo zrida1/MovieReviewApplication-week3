@@ -105,4 +105,12 @@ public class MovieServiceImpl implements MovieService {
                 .toList();
     }
 
+    @Override
+    public List<MovieResponseDTO> getBestMovies(){
+        return movieRepository.findBestMovies()
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
+
 }

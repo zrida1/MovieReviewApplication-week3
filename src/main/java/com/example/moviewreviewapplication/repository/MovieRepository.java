@@ -11,7 +11,6 @@ import java.util.List;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
     List<Movie> findByGenre(String genre);
-    List<Movie> findByReleaseYear(Integer releaseYear);
     List<Movie> findByImdbRatingGreaterThanEqual(Double rating);
     List<Movie> findByTitleContainingIgnoreCase(String title);
     @Query("""
@@ -33,7 +32,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query(value="""
         SELECT *
         FROM movies
-        WHERE imdb_rating>8
+        WHERE imdb_rating>= 8
     """,nativeQuery = true)
     List<Movie>findBestMovies();
 
