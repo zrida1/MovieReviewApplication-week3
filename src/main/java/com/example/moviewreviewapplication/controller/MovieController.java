@@ -94,4 +94,20 @@ public class MovieController {
 
         return movieService.getBestMovies();
     }
+
+    @Operation(summary = "Filter movies dynamically")
+    @GetMapping("/filter")
+    public List<MovieResponseDTO> filterMovies(
+            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) Double rating,
+            @RequestParam(required = false) Integer year,
+            @RequestParam(required = false) String title) {
+
+        return movieService.filterMovies(
+                genre,
+                rating,
+                year,
+                title
+        );
+    }
 }
