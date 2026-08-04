@@ -88,7 +88,7 @@ public class MovieController {
         return movieService.getMoviesByCategory(category);
     }
 
-    @Operation(summary = "Get movies that have IMBD greater than 8")
+    @Operation(summary = "Get movies with IMDb rating greater than or equal to 8")
     @GetMapping("/best")
     public List<MovieResponseDTO> bestMovies() {
 
