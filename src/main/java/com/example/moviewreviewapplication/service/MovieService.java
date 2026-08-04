@@ -24,6 +24,7 @@ public interface MovieService {
     List<MovieResponseDTO> getMoviesByCategory(String category);
 
     List<MovieResponseDTO> getBestMovies();
+    List<MovieResponseDTO> filterMovies(String genre, Double rating, Integer year, String title);
 
 
 }

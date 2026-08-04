@@ -9,10 +9,12 @@ import com.example.moviewreviewapplication.mapper.MovieMapper;
 import com.example.moviewreviewapplication.repository.CategoryRepository;
 import com.example.moviewreviewapplication.repository.MovieRepository;
 import com.example.moviewreviewapplication.service.MovieService;
+import com.example.moviewreviewapplication.specification.MovieSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -108,6 +110,24 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieResponseDTO> getBestMovies(){
         return movieRepository.findBestMovies()
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
+    @Override
+    public List<MovieResponseDTO> filterMovies(
+            String genre,
+            Double rating,
+            Integer year,
+            String title) {
+
+        Specification<Movie> specification =
+                Specification.where(MovieSpecification.hasGenre(genre))
+                        .and(MovieSpecification.hasMinimumRating(rating))
+                        .and(MovieSpecification.hasReleaseYear(year))
+                        .and(MovieSpecification.titleContains(title));
+
+        return movieRepository.findAll(specification)
                 .stream()
                 .map(movieMapper::toResponseDTO)
                 .toList();
