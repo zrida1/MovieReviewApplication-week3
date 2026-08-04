@@ -89,5 +89,13 @@ public class MovieServiceImpl implements MovieService {
                 .map(movieMapper::toResponseDTO)
                 .toList();
     }
+    @Override
+    public List<MovieResponseDTO> getTopMovies(Double rating,Integer year){
+        return movieRepository.findTopMovies(rating, year)
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
+
 
 }
