@@ -55,4 +55,36 @@ public class MovieController {
         return movieService.createMovie(movie);
 
     }
+
+    @Operation(summary = "Get movies by genre")
+    @GetMapping("/genre/{genre}")
+    public List<MovieResponseDTO> getByGenre(@PathVariable String genre) {
+        return movieService.getMoviesByGenre(genre);
+    }
+
+    @Operation(summary = "Get movies by minimum IMDb rating")
+    @GetMapping("/rating/{rating}")
+    public List<MovieResponseDTO> getByRating(@PathVariable Double rating) {
+        return movieService.getMoviesByRating(rating);
+    }
+
+    @Operation(summary = "Search movies by title")
+    @GetMapping("/search")
+    public List<MovieResponseDTO> search(@RequestParam String title) {
+        return movieService.searchByTitle(title);
+    }
+
+    @Operation(summary = "Filter movies by rating and release year")
+    @GetMapping("/top")
+    public List<MovieResponseDTO> topMovies(
+            @RequestParam Double rating,
+            @RequestParam Integer year) {
+        return movieService.getTopMovies(rating, year);
+    }
+
+    @Operation(summary = "Get movies by category")
+    @GetMapping("/category/{category}")
+    public List<MovieResponseDTO> byCategory(@PathVariable String category) {
+        return movieService.getMoviesByCategory(category);
+    }
 }
