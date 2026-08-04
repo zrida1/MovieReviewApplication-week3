@@ -19,5 +19,8 @@ public interface MovieService {
     MovieResponseDTO createMovie(MovieRequestDTO dto);
     List<MovieResponseDTO> getMoviesByGenre(String genre);
     List<MovieResponseDTO> getMoviesByRating(Double rating);
+    List<MovieResponseDTO> searchByTitle(String title);
+
+
 
 }

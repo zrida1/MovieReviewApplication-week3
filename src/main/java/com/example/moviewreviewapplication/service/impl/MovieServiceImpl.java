@@ -82,5 +82,12 @@ public class MovieServiceImpl implements MovieService {
                 .map(movieMapper::toResponseDTO)
                 .toList();
     }
+    @Override
+    public List<MovieResponseDTO> searchByTitle(String title){
+        return movieRepository.findByTitleContainingIgnoreCase(title)
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
 
 }
