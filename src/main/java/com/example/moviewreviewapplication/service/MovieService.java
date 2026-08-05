@@ -2,6 +2,7 @@ package com.example.moviewreviewapplication.service;
 
 import com.example.moviewreviewapplication.dto.MovieRequestDTO;
 import com.example.moviewreviewapplication.dto.MovieResponseDTO;
+import com.example.moviewreviewapplication.dto.ReviewRequestDTO;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -25,6 +26,5 @@ public interface MovieService {
 
     List<MovieResponseDTO> getBestMovies();
     List<MovieResponseDTO> filterMovies(String genre, Double rating, Integer year, String title);
-
 
 }

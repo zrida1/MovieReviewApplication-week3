@@ -2,6 +2,7 @@ package com.example.moviewreviewapplication.service.impl;
 
 import com.example.moviewreviewapplication.dto.MovieRequestDTO;
 import com.example.moviewreviewapplication.dto.MovieResponseDTO;
+import com.example.moviewreviewapplication.dto.ReviewRequestDTO;
 import com.example.moviewreviewapplication.entity.Category;
 import com.example.moviewreviewapplication.entity.Movie;
 import com.example.moviewreviewapplication.exception.ResourceNotFoundException;

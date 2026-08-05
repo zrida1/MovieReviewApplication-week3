@@ -53,4 +53,13 @@ public class ReviewController {
     public void deleteReview(@PathVariable Long id) {
         reviewService.deleteReview(id);
     }
+
+    @Operation(summary = "Create review with transaction")
+    @PostMapping("/transaction")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ReviewResponseDTO createReviewTransaction(
+            @Valid @RequestBody ReviewRequestDTO dto) {
+
+        return reviewService.createReviewWithTransaction(dto);
+    }
 }
