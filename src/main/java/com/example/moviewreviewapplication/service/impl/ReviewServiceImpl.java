@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -67,6 +68,33 @@ public class ReviewServiceImpl implements ReviewService {
                         new ResourceNotFoundException("Review not found with id: " + id));
 
         reviewRepository.delete(review);
+    }
+    @Override
+    @Transactional
+    public ReviewResponseDTO createReviewWithTransaction(ReviewRequestDTO dto) {
+
+        Movie movie = movieRepository.findById(dto.getMovieId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Movie not found"));
+
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("User not found"));
+
+        Review review = reviewMapper.toEntity(dto);
+        review.setMovie(movie);
+        review.setUser(user);
+
+        reviewRepository.save(review);
+
+        movie.setImdbRating(dto.getRating());
+        movieRepository.save(movie);
+
+        if (dto.getRating() < 5) {
+            throw new RuntimeException("Transaction rolled back");
+        }
+
+        return reviewMapper.toResponseDTO(review);
     }
 
 }
