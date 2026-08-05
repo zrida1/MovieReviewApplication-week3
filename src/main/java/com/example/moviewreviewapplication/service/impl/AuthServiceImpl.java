@@ -35,14 +35,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserResponseDTO register(UserRequestDTO dto) {
-
-        dto.setPassword(encoder.encode(dto.getPassword()));
-
-        User user = userMapper.toEntity(dto);
-        user.setRole(Role.USER);
         if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
             throw new EmailAlreadyExistsException("Email is already in use.");
         }
+
+        User user = userMapper.toEntity(dto);
+        user.setPassword(encoder.encode(dto.getPassword()));
+        user.setRole(Role.USER);
+
 
         return userMapper.toResponseDTO(userRepository.save(user));
     }
