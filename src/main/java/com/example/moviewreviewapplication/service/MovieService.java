@@ -14,6 +14,7 @@ public interface MovieService {
     MovieResponseDTO getMovieById(Long id);
 
     Page<MovieResponseDTO> getAllMovies(int page, int size, String sortBy);
+    List<MovieResponseDTO> getAllMoviesWithCategories();
     MovieResponseDTO updateMovie(Long id, MovieRequestDTO dto);
 
     void deleteMovie(Long id);

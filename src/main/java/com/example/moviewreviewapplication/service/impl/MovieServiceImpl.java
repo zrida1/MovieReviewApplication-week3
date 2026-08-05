@@ -45,6 +45,15 @@ public class MovieServiceImpl implements MovieService {
 
         return movieRepository.findAll(pageable).map(movieMapper::toResponseDTO);
     }
+
+    @Override
+    public List<MovieResponseDTO> getAllMoviesWithCategories() {
+
+        return movieRepository.findAll()
+                .stream()
+                .map(movieMapper::toResponseDTO)
+                .toList();
+    }
     public MovieResponseDTO updateMovie(Long id, MovieRequestDTO dto) {
         Movie movie = movieRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Movie not found with id: " + id));
         List<Category> categories = categoryRepository.findAllById(dto.getCategoryIds());
