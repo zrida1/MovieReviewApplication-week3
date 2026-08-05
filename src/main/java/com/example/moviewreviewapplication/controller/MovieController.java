@@ -24,7 +24,7 @@ public class MovieController {
     @Operation(summary = "Get all movies")
     @GetMapping
     public Page<MovieResponseDTO> getMovies(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "title") String sortBy) {
-        return movieService.getAllMovies(page, size, sortBy);
+        return movieService.getAllMoviesWithCategories(page, size, sortBy);
     }
 
     @Operation(summary = "Get movie by id")
@@ -110,4 +110,6 @@ public class MovieController {
                 title
         );
     }
+
+
 }

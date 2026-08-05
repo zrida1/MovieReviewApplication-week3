@@ -13,8 +13,7 @@ public interface MovieService {
 
     MovieResponseDTO getMovieById(Long id);
 
-    Page<MovieResponseDTO> getAllMovies(int page, int size, String sortBy);
-    List<MovieResponseDTO> getAllMoviesWithCategories();
+    Page<MovieResponseDTO> getAllMoviesWithCategories(int page, int size, String sortBy);
     MovieResponseDTO updateMovie(Long id, MovieRequestDTO dto);
 
     void deleteMovie(Long id);

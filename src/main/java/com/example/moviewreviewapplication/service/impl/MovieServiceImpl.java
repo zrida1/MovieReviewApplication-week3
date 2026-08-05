@@ -38,21 +38,11 @@ public class MovieServiceImpl implements MovieService {
         return movieMapper.toResponseDTO(movieRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Movie not found with id: " + id)));
     }
 
-    public Page<MovieResponseDTO> getAllMovies(int page, int size, String sortBy) {
-
-        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending()
-        );
-
-        return movieRepository.findAll(pageable).map(movieMapper::toResponseDTO);
-    }
-
     @Override
-    public List<MovieResponseDTO> getAllMoviesWithCategories() {
+    public Page<MovieResponseDTO> getAllMoviesWithCategories(int page, int size, String sortBy) {
 
-        return movieRepository.findAll()
-                .stream()
-                .map(movieMapper::toResponseDTO)
-                .toList();
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy).ascending());
+        return movieRepository.findAll(pageable).map(movieMapper::toResponseDTO);
     }
     public MovieResponseDTO updateMovie(Long id, MovieRequestDTO dto) {
         Movie movie = movieRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Movie not found with id: " + id));
