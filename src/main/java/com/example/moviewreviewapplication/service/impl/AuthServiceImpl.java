@@ -6,6 +6,7 @@ import com.example.moviewreviewapplication.dto.UserRequestDTO;
 import com.example.moviewreviewapplication.dto.UserResponseDTO;
 import com.example.moviewreviewapplication.entity.Role;
 import com.example.moviewreviewapplication.entity.User;
+import com.example.moviewreviewapplication.exception.EmailAlreadyExistsException;
 import com.example.moviewreviewapplication.mapper.UserMapper;
 import com.example.moviewreviewapplication.repository.UserRepository;
 import com.example.moviewreviewapplication.service.AuthService;
@@ -39,6 +40,9 @@ public class AuthServiceImpl implements AuthService {
 
         User user = userMapper.toEntity(dto);
         user.setRole(Role.USER);
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            throw new EmailAlreadyExistsException("Email is already in use.");
+        }
 
         return userMapper.toResponseDTO(userRepository.save(user));
     }
