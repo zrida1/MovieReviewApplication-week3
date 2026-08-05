@@ -16,7 +16,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.beans.Transient;
 import java.util.List;
 
 @Service
@@ -63,8 +65,12 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.delete(movie);
     }
 
+    @Transactional
     public MovieResponseDTO createMovie(MovieRequestDTO dto){
         List<Category> categories = categoryRepository.findAllById(dto.getCategoryIds());
+        if (categories.size() != dto.getCategoryIds().size()) {
+            throw new ResourceNotFoundException("One or more categories not found.");
+        }
         Movie movie = movieMapper.toEntity(dto);
         movie.setCategories(categories);
         return movieMapper.toResponseDTO(movieRepository.save(movie));
